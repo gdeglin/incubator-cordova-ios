@@ -40,7 +40,8 @@ CONVERTPDF = /System/Library/Printers/Libraries/convert
 COMBINEPDF = /System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py
 DOXYGEN = 
 IPHONE_DOCSET_TMPDIR = docs/iphone/tmp
-DEVELOPER = '$(shell mdfind "kMDItemDisplayName=='Xcode' && kMDItemKind=='Application'")/Contents/Developer'
+XC_APP = '$(shell mdfind "kMDItemDisplayName=='Xcode' && kMDItemKind=='Application'")'
+DEVELOPER = '$(XC_APP)/Contents/Developer'
 PM_APP = '$(shell mdfind "kMDItemDisplayName=='PackageMaker*' && kMDItemKind=='Application'")'
 PACKAGEMAKER = '$(PM_APP)/Contents/MacOS/PackageMaker'
 XC = $(DEVELOPER)/usr/bin/xcodebuild
@@ -155,7 +156,7 @@ check-os:
 	@if [ "$$OSTYPE" != "darwin11" ]; then echo "Error: You need to package the installer on a Mac OS X 10.7 Lion system."; exit 1; fi
 
 check-utils:
-		@if [ $(XC) == '' ] ; then \
+		@if [ $(XC_APP) == '' ] ; then \
 			echo 'No Xcode found. Please download from the Mac App Store.'; exit 1;  \
 		fi
 		@if [ $(PM_APP) == '' ] ; then \
